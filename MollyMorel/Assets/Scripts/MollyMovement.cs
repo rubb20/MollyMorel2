@@ -5,10 +5,14 @@ using UnityEngine;
 public class MollyMovement : MonoBehaviour
 {
     [SerializeField] private GameObject Molly;
+
     public int velocidad;
     public float tolerancia;
-    private bool puedeCaminar;
-    private bool estaCaminando;
+    
+    public bool puedeCaminar;
+    public bool estaCaminando;
+    private Animator anim;
+
     float angulo;
     float cosa;
     float sina;
@@ -17,6 +21,7 @@ public class MollyMovement : MonoBehaviour
 
     void Start()
     {
+        anim = Molly.GetComponent<Animator>();
         estaCaminando = false;
         puedeCaminar = true;
     } 
@@ -45,7 +50,7 @@ public class MollyMovement : MonoBehaviour
         px = Mathf.Sign(xx - Molly.transform.position.x);
         py = Mathf.Sign(yy - Molly.transform.position.y);
 
-        
+        Molly.transform.localScale = new Vector3(Mathf.Abs(Molly.transform.localScale.x) * (-1) * px, Molly.transform.localScale.y, Molly.transform.localScale.z);
 
         while (estaCaminando)
         {
@@ -73,5 +78,17 @@ public class MollyMovement : MonoBehaviour
 
             StartCoroutine(MuevetePerra(destino.x, destino.y));
         }
+
+        if (estaCaminando)
+        {
+            anim.SetBool("camina", true);
+        }else
+        {
+            anim.SetBool("camina", false);
+        }
+    }
+    public void QuietaParaa()
+    {
+        estaCaminando = false;
     }
 }
