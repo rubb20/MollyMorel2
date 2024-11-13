@@ -5,6 +5,8 @@ using UnityEngine;
 public class MollyMovement : MonoBehaviour
 {
     [SerializeField] private GameObject Molly;
+    [SerializeField] private Controladordesalas admin;
+    
 
     public int velocidad;
     public float tolerancia;
@@ -18,6 +20,10 @@ public class MollyMovement : MonoBehaviour
     float sina;
     float px;
     float py;
+
+    
+    float newXXX;
+    float newYYY;
 
     void Start()
     {
@@ -34,6 +40,10 @@ public class MollyMovement : MonoBehaviour
             StopAllCoroutines();
             estaCaminando = false;
             puedeCaminar = true;
+        }
+        if (collision.gameObject.CompareTag("Manita") && estaCaminando)
+        {
+            admin.mollyChoca = true;
         }
     }
 
@@ -87,6 +97,21 @@ public class MollyMovement : MonoBehaviour
             anim.SetBool("camina", false);
         }
     }
+
+    public void SetX(float xxx)
+    {
+        newXXX = xxx;
+    }
+    public void SetY(float yyy)
+    {
+        newYYY = yyy;
+    }
+    public void MollyAparece()
+    {
+        QuietaParaa();
+        Molly.transform.position = new Vector3(newXXX, newYYY, 0.0f);
+    }
+
     public void QuietaParaa()
     {
         estaCaminando = false;
