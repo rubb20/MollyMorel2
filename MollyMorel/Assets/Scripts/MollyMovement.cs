@@ -6,7 +6,6 @@ public class MollyMovement : MonoBehaviour
 {
     [SerializeField] private GameObject Molly;
     [SerializeField] private Controladordesalas admin;
-    
 
     public int velocidad;
     public float tolerancia;
@@ -32,6 +31,12 @@ public class MollyMovement : MonoBehaviour
         puedeCaminar = true;
     } 
 
+    public void QuietaParaa()
+    {
+        estaCaminando = false;
+        puedeCaminar = true;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Estorbo") && estaCaminando)
@@ -49,10 +54,6 @@ public class MollyMovement : MonoBehaviour
 
     IEnumerator MuevetePerra(float xx, float yy)
     {
-        //////////////////////////////////////////////////////////////////
-        ////// ANIMATION
-        //////////////////////////////////////////////////////////////////
-
         angulo = Mathf.Atan2((yy - Molly.transform.position.y), (xx - Molly.transform.position.x));
         cosa = Mathf.Abs(Mathf.Cos(angulo));
         sina = Mathf.Abs(Mathf.Sin(angulo));
@@ -61,6 +62,7 @@ public class MollyMovement : MonoBehaviour
         py = Mathf.Sign(yy - Molly.transform.position.y);
 
         Molly.transform.localScale = new Vector3(Mathf.Abs(Molly.transform.localScale.x) * (-1) * px, Molly.transform.localScale.y, Molly.transform.localScale.z);
+
 
         while (estaCaminando)
         {
@@ -98,6 +100,7 @@ public class MollyMovement : MonoBehaviour
         }
     }
 
+
     public void SetX(float xxx)
     {
         newXXX = xxx;
@@ -112,8 +115,4 @@ public class MollyMovement : MonoBehaviour
         Molly.transform.position = new Vector3(newXXX, newYYY, 0.0f);
     }
 
-    public void QuietaParaa()
-    {
-        estaCaminando = false;
-    }
 }
