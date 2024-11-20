@@ -5,9 +5,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class Item : MonoBehaviour
 {
+    [SerializeField] private GameObject Objeto;
 
     [Header("Sprite del Item:")]
     public Sprite imagen;
@@ -17,18 +19,30 @@ public class Item : MonoBehaviour
     private bool isDragging;
     private Image imag;
 
-    void Start()
+    void Awake()
     {
-        imag = this.GetComponent<Image>();
+        imag = Objeto.GetComponent<Image>();
         isDragging = false;
+        //if (imag == null)
+        //{
+        //    Debug.LogError("No se pudo asignar el sprite. El componente Image es null. PUTA MADRE");
+        //}  //AQUI NO DA NULL AAAAAAAAAAAA
     }
 
     public void CaracteristicasItem(string n, Sprite s)
     {
-        imag.sprite = s;
-        imagen = s;
         nombre = n;
+        imagen = s;
+        //if (imag == null)
+        //{
+        //    Debug.LogError("No se pudo asignar el sprite. El componente Image es null.");
+        //}   //EFECTIVAMENTE DA NULL
+        imag.sprite = s;
     }
+
+    /// <summary>
+    ///  samba du brasil
+    /// </summary>
 
     public void Clic()
     {

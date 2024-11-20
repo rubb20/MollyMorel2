@@ -19,8 +19,8 @@ public class OpcionesItems : MonoBehaviour
 
 
     //public bool estaActivo;
-    [Header("Sprite del Item:")]
-    [SerializeField] public Sprite imagen;
+    //[Header("Sprite del Item:")]
+    //public Sprite imagen;
     [Header("Nombre del Item:")]
     public string nombre;
 
@@ -33,10 +33,11 @@ public class OpcionesItems : MonoBehaviour
 
 
     private bool puedeInteractuar;
-    
+    private Sprite imag;
+
     void Start()
     {
-        
+        imag = GetComponent<Image>().sprite;
         puedeInteractuar = false;
     }
 
@@ -68,7 +69,8 @@ public class OpcionesItems : MonoBehaviour
         {
             ///
             //AdquirirObjeto();
-            Inventario.AgregaItem(nombre, imagen);
+            Debug.Log("Has cojido un " + nombre);
+            Inventario.AgregaItem(nombre, imag);
         }else{
             ///
         }
@@ -87,7 +89,7 @@ public class OpcionesItems : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && KovalskiOpciones.activeSelf)
+        if (Input.GetMouseButtonUp(0) && KovalskiOpciones.activeSelf)   //me cago en el button up y la madre que lo pario amen
         {
             KovalskiOpciones.SetActive(false);
         }

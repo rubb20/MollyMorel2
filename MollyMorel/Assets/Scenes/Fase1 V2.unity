@@ -1383,7 +1383,6 @@ MonoBehaviour:
   KovalskiOpciones: {fileID: 511886821}
   Inventario: {fileID: 244879108}
   MollyCosas: {fileID: 1453419948}
-  imagen: {fileID: 21300000, guid: ab7270a71dba853448c6070ed60d7fa9, type: 3}
   nombre: Conejo
   cojible: 1
   textoNoSeCoje: []
@@ -2108,8 +2107,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 107, y: 130}
-  m_SizeDelta: {x: 314.5727, y: 194.2217}
+  m_AnchoredPosition: {x: 130, y: 165}
+  m_SizeDelta: {x: 240, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &376757787
 MonoBehaviour:
@@ -2182,7 +2181,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 70, y: 70, z: 70, w: 70}
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4443,8 +4442,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -87, y: 130}
-  m_SizeDelta: {x: 314.5727, y: 194.2217}
+  m_AnchoredPosition: {x: -130, y: 165}
+  m_SizeDelta: {x: 230, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1133351718
 MonoBehaviour:
@@ -4517,7 +4516,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 70, y: 70, z: 80, w: 70}
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:

@@ -29,6 +29,7 @@ public class InventarioControler : MonoBehaviour
             {
                 array[i].SetActive(true);
                 encontrado = true;
+                Debug.Log("Se ha agregado al inventario ");
 
                 Item it = array[i].GetComponent<Item>();
                 it.CaracteristicasItem(nombre, imagen);
