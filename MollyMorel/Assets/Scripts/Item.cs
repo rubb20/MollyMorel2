@@ -10,6 +10,8 @@ using UnityEditor;
 public class Item : MonoBehaviour
 {
     [SerializeField] private GameObject Objeto;
+    [SerializeField] private GameObject puntero;
+    private MollyMovement Molly;
 
     [Header("Sprite del Item:")]
     public Sprite imagen;
@@ -18,25 +20,25 @@ public class Item : MonoBehaviour
 
     private bool isDragging;
     private Image imag;
+    private Image punt;
+
+    void Start()
+    {
+        Molly = GameObject.FindObjectOfType<MollyMovement>();
+    }
 
     void Awake()
     {
         imag = Objeto.GetComponent<Image>();
+        punt = puntero.GetComponent<Image>();
+        puntero.SetActive(false);
         isDragging = false;
-        //if (imag == null)
-        //{
-        //    Debug.LogError("No se pudo asignar el sprite. El componente Image es null. PUTA MADRE");
-        //}  //AQUI NO DA NULL AAAAAAAAAAAA
     }
 
     public void CaracteristicasItem(string n, Sprite s)
     {
         nombre = n;
         imagen = s;
-        //if (imag == null)
-        //{
-        //    Debug.LogError("No se pudo asignar el sprite. El componente Image es null.");
-        //}   //EFECTIVAMENTE DA NULL
         imag.sprite = s;
     }
 
@@ -46,53 +48,75 @@ public class Item : MonoBehaviour
 
     public void Clic()
     {
-        isDragging = true;        
-        /////INTERACCION CON EL PUNTERO
+        Debug.Log("Has clicado en el item ");
+        if(!puntero.activeSelf)
+        {   
+            Debug.Log("Se ha activado el puntero ");
+            Molly.PerraQuieta();
+            puntero.SetActive(true);
+            punt.sprite = imagen;
+            isDragging = true;
+
+            /////INTERACCION CON EL PUNTERO
+        }
     }
 
+    Vector3 mouse;
     void Update()
     {
+        mouse = Input.mousePosition;
+        if (isDragging)
+        {
+            puntero.transform.position = mouse;
+        }
+
         if (Input.GetMouseButtonDown(0) && isDragging)
         {
             isDragging = false; 
+            puntero.SetActive(false);
+            Molly.QuietaParaa();
+            //Interactua con el otro objeto
+        }
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Esta funcion se colocara al hacer clic sobre la zona en la que se quiere utilizar el objeto:
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////    
+    public void InteractuarConElObjeto(string nom)  
+    {
+        if(puntero.activeSelf && (punt.sprite == imagen) && (nom == nombre))
+        {   
+            UsarObjeto();
         }
     }
 
 
-/*
-    public enum ObjetosEquipo
-    {
-        Conejo,
-        Manivela,
-        Semillas // puntos suspensivos
-        //hay que anyadir mas
-    };
-    [SerializeField] ObjetosEquipo objetosEquipo;
+    //Aqui se pondran los efectos que ocurriran cuando se utilice el objeto
     public void UsarObjeto()
     {
         //PersonajeScript personaje = GameObject.FindObjectOfType<PersonajeScript>();
 
-        switch (objetosEquipo)
+        switch (nombre)
         {
-            case ObjetosEquipo.Conejo:
+            case "Conejo":
                 //personaje.SumaVida();
                 //Debug.Log("Cura un punto de salud");
                 break;
 
-            case ObjetosEquipo.Manivela:
+            case "Manivela":
                 //personaje.SumaVida();
                 //personaje.SumaVida();
                 //Debug.Log("Cura dos punto de salud");
                 break;
 
-            case ObjetosEquipo.Semillas:
+            case "Semillas":
                 //personaje.SumaVelocidad();
                 //Debug.Log("Concede velocidad");
                 break;
         }
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
     }
-    */
 
 
 

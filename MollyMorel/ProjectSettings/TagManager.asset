@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Estorbo
   - Manita
+  - Pointer
   layers:
   - Default
   - TransparentFX

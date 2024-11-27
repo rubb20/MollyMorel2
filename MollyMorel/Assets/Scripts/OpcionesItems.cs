@@ -16,6 +16,7 @@ public class OpcionesItems : MonoBehaviour
     [SerializeField] private InventarioControler Inventario;
     [SerializeField] private MollyMovement MollyCosas;
     //[SerializeField] private GameObject equipo;
+    [SerializeField] private GameObject Dialogos;
 
 
     //public bool estaActivo;
@@ -30,6 +31,7 @@ public class OpcionesItems : MonoBehaviour
     [SerializeField] private string [] textoNoSeCoje;
     [Header("Variables de 'hablar':")]    
     [SerializeField] private string [] textosHablar;
+    [SerializeField] private int [] HablantesNumeros;
 
 
     private bool puedeInteractuar;
@@ -39,6 +41,15 @@ public class OpcionesItems : MonoBehaviour
     {
         imag = GetComponent<Image>().sprite;
         puedeInteractuar = false;
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonUp(0) && KovalskiOpciones.activeSelf)   //me cago en el button up y la madre que lo pario amen
+        {
+            KovalskiOpciones.SetActive(false);
+            MollyCosas.QuietaParaa();
+        }
     }
 
     void OnMouseDown()
@@ -51,11 +62,14 @@ public class OpcionesItems : MonoBehaviour
     {
         if ((other.gameObject.CompareTag("Player")) && puedeInteractuar)
         {
-            MollyCosas.QuietaParaa();
+            //MollyCosas.QuietaParaa();
             /////////////////////////////////////se despliegan las opciones
             KovalskiOpciones.SetActive(true);
 
             puedeInteractuar = false;
+            MollyCosas.StopAllCoroutines();
+            MollyCosas.PerraQuieta();
+            //MollyCosas.QuietaParaa();
         }
     }
     /// <summary>
@@ -67,13 +81,26 @@ public class OpcionesItems : MonoBehaviour
     {
         if (cojible)
         {
+            MollyCosas.PerraQuieta();
             ///
             //AdquirirObjeto();
             Debug.Log("Has cojido un " + nombre);
             Inventario.AgregaItem(nombre, imag);
         }else{
             ///
+            int[] n = new int[] { -1, -1, -1, -1, -1, -1, -1 };
+            Dialogos.SetActive(true);
+            ControlTextos c = Dialogos.GetComponent<ControlTextos>();
+            c.PuesTocaHablar(textoNoSeCoje, n);
+            
         }
+    }
+
+    public void CuentameElChisme()
+    {
+        Dialogos.SetActive(true);
+        ControlTextos c = Dialogos.GetComponent<ControlTextos>();
+        c.PuesTocaHablar(textosHablar, HablantesNumeros);
     }
 
     public void AdquirirObjeto()
@@ -85,16 +112,5 @@ public class OpcionesItems : MonoBehaviour
         //Item it = equipo.GetComponent<Item>();
         //it.CaracteristicasItem(nombre, imagen);
     }
-
-
-    void Update()
-    {
-        if (Input.GetMouseButtonUp(0) && KovalskiOpciones.activeSelf)   //me cago en el button up y la madre que lo pario amen
-        {
-            KovalskiOpciones.SetActive(false);
-        }
-        
-    }
-
 
 }

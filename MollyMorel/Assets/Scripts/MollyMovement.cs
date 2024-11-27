@@ -12,6 +12,7 @@ public class MollyMovement : MonoBehaviour
     
     public bool puedeCaminar;
     public bool estaCaminando;
+    public bool estaHablando;
     private Animator anim;
 
     float angulo;
@@ -27,6 +28,7 @@ public class MollyMovement : MonoBehaviour
     void Start()
     {
         anim = Molly.GetComponent<Animator>();
+        estaHablando = false;
         estaCaminando = false;
         puedeCaminar = true;
     } 
@@ -37,19 +39,31 @@ public class MollyMovement : MonoBehaviour
         puedeCaminar = true;
     }
 
+    public void PerraQuieta()
+    {
+        estaCaminando = false;
+        puedeCaminar = false;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Estorbo") && estaCaminando)
         {
             Molly.transform.position -= new Vector3(px * cosa * velocidad, py * sina * velocidad, 0.0f) * 2;
             StopAllCoroutines();
-            estaCaminando = false;
-            puedeCaminar = true;
+            QuietaParaa();
         }
         if (collision.gameObject.CompareTag("Manita") && estaCaminando)
         {
             admin.mollyChoca = true;
         }
+        /*
+        if (collision.gameObject.CompareTag("Item") && estaCaminando) //esto no lo he usado ////////////////////////////////////////
+        {
+            Molly.transform.position -= new Vector3(px * cosa * velocidad, py * sina * velocidad, 0.0f) * 2;
+            StopAllCoroutines();
+            PerraQuieta();
+        }*/
     }
 
     IEnumerator MuevetePerra(float xx, float yy)
@@ -80,13 +94,12 @@ public class MollyMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && puedeCaminar)
+        Vector3 destino = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        destino.z = 0;
+        if (Input.GetMouseButtonDown(0) && puedeCaminar && (destino.y < 850) && !estaHablando)
         {
             puedeCaminar = false;
             estaCaminando = true;
-
-            Vector3 destino = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            destino.z = 0;
 
             StartCoroutine(MuevetePerra(destino.x, destino.y));
         }

@@ -11,9 +11,13 @@ using UnityEngine.EventSystems;
 public class InventarioControler : MonoBehaviour
 {
     [SerializeField] private GameObject[] array = new GameObject[6];
+    [SerializeField] private GameObject puntero;
     
+    private MollyMovement Molly;
+
     void Start()
     {
+        Molly = GameObject.FindObjectOfType<MollyMovement>();
         for(int i = 0; i< 6; i++)
         {
             array[i].SetActive(false);
@@ -36,6 +40,7 @@ public class InventarioControler : MonoBehaviour
             }
             
         }
+        Molly.QuietaParaa();
     }
 
 
